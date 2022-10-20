@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.saltuk.anas.security.ApplicationUserRole.*;
+
 //TODO: fix deprecated class
 
 @Configuration
@@ -30,13 +32,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails boris = User.builder()
                 .username("boris")
                 .password(passwordEncoder.encode("password"))
-                .roles("STUDENT") //ROLE_STUDENT
+                .roles(STUDENT.name()) //ROLE_STUDENT
                 .build();
 
         UserDetails varvara = User.builder()
                 .username("varvara")
                 .password(passwordEncoder.encode("password123"))
-                .roles("ADMIN") //ROLE_STUDENT
+                .roles(ADMIN.name())
                 .build();
         return new InMemoryUserDetailsManager(boris, varvara);
     }
@@ -45,8 +47,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*",  "/js/*")
-                .permitAll()
+                .antMatchers("/", "index", "/css/*",  "/js/*").permitAll()
+                .antMatchers("/api/**").hasRole(STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
