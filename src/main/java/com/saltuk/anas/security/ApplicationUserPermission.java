@@ -3,8 +3,8 @@ package com.saltuk.anas.security;
 public enum ApplicationUserPermission {
     STUDENT_WRITE("student:write"),
     STUDENT_READ("student:read"),
-    COURSE_WRITE("student:write"),
-    COURSE_READ("student:read");
+    COURSE_WRITE("course:write"),
+    COURSE_READ("course:read");
 
     private final String permission;
 
