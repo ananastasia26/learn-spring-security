@@ -1,0 +1,6 @@
+app:
+  jwt:
+    key: securesecuresecuresecuresecuresecuresecure
+    expiration-days: 14
+    header-name: Authorization
+    jwt-prefix: Bearer
